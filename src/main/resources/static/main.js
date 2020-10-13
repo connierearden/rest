@@ -12,7 +12,8 @@ function ajaxDrawTable() {
                            <td id="a${us.id}">${us.age}</td>
                            <td id="e${us.id}">${us.email}</td>
                            <td id="p${us.id}">${us.password}</td>
-                           <td id="r${us.id}">${us.roles}</td>
+                      
+                           <td id="r${us.id}">${getStringFromRoles(us.roles)}</td>
                            
                            <td><button type="button" onclick="setDeleteModalWindow(${us.id})" class="btn btn-danger"
                            data-toggle="modal" data-target="#exampleModalDelete">Delete</td>
@@ -35,7 +36,7 @@ function ajaxCreateUser() {
         age : $("#age").val(),
         email : $("#email").val(),
         password : $("#password").val(),
-        roles : $("#roles").val()
+        roles :getRolesfromString($("#roles").val())
     }
 
     $.ajax ({
@@ -61,6 +62,7 @@ function setUpdateModalWindow(id) {
     $("#upAge").attr("value", $("#a"+id)[0].innerHTML);
     $("#upEmail").attr("value", $("#e"+id)[0].innerHTML);
     $("#upPassword").attr("value", $("#p"+id)[0].innerHTML);
+    $("#upRoles").attr("value", $("#r"+id)[0].innerHTML);
 }
 
 function ajaxUpdateUser() {
@@ -71,7 +73,7 @@ function ajaxUpdateUser() {
         age : $("#upAge").val(),
         email : $("#upEmail").val(),
         password : $("#upPassword").val(),
-        roles : $("#roles").val()
+        roles : getRolesfromString($("#upRoles").val())
     }
     $.ajax ({
         type: "POST",
@@ -97,6 +99,7 @@ function setDeleteModalWindow(id) {
     $("#delAge").attr("value", $("#a"+id)[0].innerHTML);
     $("#delEmail").attr("value", $("#e"+id)[0].innerHTML);
     $("#delPassword").attr("value", $("#p"+id)[0].innerHTML);
+    $("#delRoles").attr("value", $("#r"+id)[0].innerHTML);
 }
 
 function ajaxDeleteUser(id) {
@@ -114,8 +117,21 @@ function ajaxDeleteUser(id) {
 }
 
 /*FOR CORRECT ROLE IMAGING*/
-function getRolesForTable (array) {
-    return array.filter(item => item.name);
+function getStringFromRoles (array) {
+    console.log(array)
+    return array.map(item => item.name).join(',');
+}
+function getRolesfromString (string) {
+        let ar = new Array();
+        if (string.indexOf('ROLE_USER')>=0) {
+            ar.push({'id': 1, 'name': 'ROLE_USER'});
+        }
+        if (string.indexOf('ROLE_ADMIN')>=0) {
+            ar.push({'id': 2, 'name': 'ROLE_ADMIN'});
+        }
+        return ar;
+
+
 }
 
 
@@ -127,14 +143,15 @@ function ajaxCurrentUser() {
         url: "get-current-user",
         success: function (us) {
             $('#cuser').empty();
-            let forNav =`<p>${us.email} with roles: ${us.roles}</p>`;
+            let forNav =`<p>${us.email} with roles: ${getStringFromRoles(us.roles)}</p>`;
             $('#userForNav').append(forNav);
             let curUser = `<tr><td>${us.id}</td>
                            <td>${us.firstName}</td>
                            <td>${us.lastName}</td>
                            <td>${us.age}</td>
                            <td>${us.email}</td>
-                           <td>${us.password}</td></tr>`;
+                           <td>${us.password}</td>
+                           <td>${getStringFromRoles(us.roles)}</td></tr>`;
             $('#currentUser').append(curUser);
 
         }

@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +22,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn (
@@ -126,12 +125,7 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles (String r) {
-        this.roles = new HashSet<>();
-        if(r.contains("USER")) {
-            this.roles.add(new Role("ROLE_USER"));
-        }
-        if(r.contains("ADMIN")) {
-            this.roles.add(new Role("ROLE_ADMIN"));}
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

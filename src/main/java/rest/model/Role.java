@@ -13,7 +13,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     private String name;
     @Transient
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE)
     private Set<User> users;
 
     public Role(){}
@@ -32,6 +32,14 @@ public class Role implements GrantedAuthority {
 
     public String getName() {
         return name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public void setName(String name) {
