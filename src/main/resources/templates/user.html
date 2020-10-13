@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Page</title>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="/main.js"></script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <div id="userForNav"></div>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <div id='myTab' class="tabbable tabs-left">
+        <ul class="nav nav-tabs nav-pills nav-stacked col-md-2">
+            <li class="active"><a href="#lA" data-toggle="tab">USER</a></li>
+        </ul>
+
+        <div class="container">
+            <div class="tab-content col-md-10">
+                <div class="tab-pane active" id="lA">
+                    <h1>User information page</h1>
+                    <h3>About user</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody id="currentUser">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
