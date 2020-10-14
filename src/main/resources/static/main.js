@@ -119,7 +119,7 @@ function ajaxDeleteUser(id) {
 /*FOR CORRECT ROLE IMAGING*/
 function getStringFromRoles (array) {
     console.log(array)
-    return array.map(item => item.name).join(',');
+    return array.map(item => item.name.replace("ROLE_","")).join(',');
 }
 function getRolesfromString (string) {
         let ar = new Array();
